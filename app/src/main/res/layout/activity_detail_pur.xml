@@ -29,7 +29,6 @@
                 android:id="@+id/imgItem"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                android:src="@drawable/Robin"
                 app:layout_collapseParallaxMultiplier="0.7"/>
 
             <androidx.appcompat.widget.Toolbar
