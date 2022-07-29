@@ -126,14 +126,6 @@
                                 android:textSize="15sp" />
 
                             <TextView
-                                android:id="@+id/productInfo"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="개수 정보"
-                                android:textColor="@color/black"
-                                android:textSize="15sp" />
-
-                            <TextView
                                 android:id="@+id/comInfo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -144,20 +136,7 @@
                         </LinearLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:progress="76"/>
 
-                    <TextView
-                        android:id="@+id/saleRate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="판매율"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

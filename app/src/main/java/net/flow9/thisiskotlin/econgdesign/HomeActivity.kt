@@ -1,14 +1,14 @@
 package net.flow9.thisiskotlin.econgdesign
 
-import android.R
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.navigation.NavigationView
+import net.flow9.thisiskotlin.econgdesign.data.Memo
 import net.flow9.thisiskotlin.econgdesign.databinding.ActivityHomeBinding
-import net.flow9.thisiskotlin.econgdesign.databinding.MenuHeaderBinding
+
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
@@ -22,6 +22,17 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.naviView.setNavigationItemSelectedListener(this)//내비게이션 메뉴 아이템에 클릭 속성 부여
 
+        val data: MutableList<Memo> = loadData()
+
+        var adapter = CustomAdapter()
+        adapter.listData = data
+
+        binding.rvItems.adapter = adapter
+
+        val staggeredGridLayoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.rvItems.layoutManager = staggeredGridLayoutManager
+
     }
 
     override fun onBackPressed() {
@@ -34,6 +45,20 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
+    }
+
+    fun loadData(): MutableList<Memo>{
+        val data: MutableList<Memo> = mutableListOf()
+
+        for(no in 1..100){
+            val title = "상품이나 기업명 ${no}"
+            val info = "상품이나 기업 정보 ${no}"
+
+            var memo = Memo(title, info)
+            data.add(memo)
+        }
+
+        return data
     }
 
 }
