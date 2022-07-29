@@ -52,6 +52,16 @@
                 android:id="@+id/imgToolbarBtnBack"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="end"
+                android:background="@drawable/bg_btn"
+                android:id="@+id/imgToolbarBtnFav"
+                android:src="@drawable/ic_baseline_favorite_border_24"/>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
