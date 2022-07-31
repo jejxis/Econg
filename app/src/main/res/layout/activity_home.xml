@@ -27,9 +27,9 @@
                     android:id="@+id/btn_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:background="@color/transparent"
                     android:src="@drawable/ic_baseline_menu_48"
-                    android:layout_marginLeft="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -40,11 +40,11 @@
                     android:layout_height="48dp"
                     android:layout_margin="5dp"
                     android:background="@color/transparent"
-                    tools:srcCompat="@tools:sample/avatars"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    tools:srcCompat="@tools:sample/avatars" />
 
                 <!--TextView
                     android:layout_width="wrap_content"
@@ -98,9 +98,11 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cgHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:clickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -146,9 +148,12 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cgCrowd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:contextClickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -194,9 +199,12 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cgComp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:contextClickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -242,9 +250,12 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cgProd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:clickable="true"
+                    android:contextClickable="true"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -291,11 +302,11 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:text="Category name"
-                android:id="@+id/tvCategory"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -311,13 +322,14 @@
 
         </LinearLayout>
     </ScrollView>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/naviView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/navi_menu"
-        app:headerLayout="@layout/menu_header"/>
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/navi_menu" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
