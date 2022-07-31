@@ -1,11 +1,11 @@
-package net.flow9.thisiskotlin.econgdesign
+package net.flow9.thisiskotlin.econg
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import net.flow9.thisiskotlin.econgdesign.databinding.ItemItemsBinding
-import net.flow9.thisiskotlin.econgdesign.data.Memo
+import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
+import net.flow9.thisiskotlin.econg.data.Memo
 
 class CustomAdapter: RecyclerView.Adapter<Holder>() {
     var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수

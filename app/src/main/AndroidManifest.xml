@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.flow9.thisiskotlin.econgdesign">
+    package="net.flow9.thisiskotlin.econg">
 
     <application
         android:allowBackup="true"
@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcongDesign">
         <activity
-            android:name=".SignInActivity"
+            android:name="net.flow9.thisiskotlin.econg.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="net.flow9.thisiskotlin.econg.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailCompActivity"
+            android:name="net.flow9.thisiskotlin.econg.DetailCompActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailFundActivity"
+            android:name="net.flow9.thisiskotlin.econg.DetailFundActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name="net.flow9.thisiskotlin.econg.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

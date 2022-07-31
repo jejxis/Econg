@@ -1,11 +1,12 @@
-package net.flow9.thisiskotlin.econgdesign
+package net.flow9.thisiskotlin.econg
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import net.flow9.thisiskotlin.econg.R
 
-class SignInActivity : AppCompatActivity() {
+class DetailPurActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        setContentView(R.layout.activity_detail_pur)
     }
 }

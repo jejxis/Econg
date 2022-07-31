@@ -1,4 +1,4 @@
-package net.flow9.thisiskotlin.econgdesign
+package net.flow9.thisiskotlin.econg
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.navigation.NavigationView
-import net.flow9.thisiskotlin.econgdesign.data.Memo
-import net.flow9.thisiskotlin.econgdesign.databinding.ActivityHomeBinding
+import net.flow9.thisiskotlin.econg.data.Memo
+import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {

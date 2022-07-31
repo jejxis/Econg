@@ -1,4 +1,4 @@
-package net.flow9.thisiskotlin.econgdesign
+package net.flow9.thisiskotlin.econg
 
 import org.junit.Test
 
