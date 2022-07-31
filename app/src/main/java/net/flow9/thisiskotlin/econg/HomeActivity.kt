@@ -1,20 +1,31 @@
 package net.flow9.thisiskotlin.econg
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.data.Memo
 import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
+    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        storage.getReferenceFromUrl("gs://econg-7e3f6.appspot.com/bud.png").downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(this).load(uri).into(binding.logo)
+        }.addOnFailureListener {
+            Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")
+        }
 
         binding.btnMenu.setOnClickListener{
             binding.layoutDrawer.openDrawer(GravityCompat.START)//START : left, END: right
