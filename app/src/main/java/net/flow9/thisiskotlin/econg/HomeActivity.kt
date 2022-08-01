@@ -1,5 +1,6 @@
 package net.flow9.thisiskotlin.econg
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -14,11 +15,19 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.data.Memo
 import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
+import net.flow9.thisiskotlin.econg.rvAdapter.CompanyAdapter
+import net.flow9.thisiskotlin.econg.rvAdapter.CrowdfundAdapter
+import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
     val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
+
+    var data: MutableList<Memo> = mutableListOf()
+    var productAdapter = ProductAdapter()
+    var crowdfundAdapter = CrowdfundAdapter()
+    var companyAdapter = CompanyAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +49,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.naviView.setNavigationItemSelectedListener(this)//내비게이션 메뉴 아이템에 클릭 속성 부여
 
-
+        loadData()
+        productAdapter.setClickListener(onClickedListItem)
         //recycler
-        val data: MutableList<Memo> = loadData(binding.cgHome)
+        /*var data: MutableList<Memo> = loadData(binding.cgHome)
 
         var adapter = CustomAdapter()
         adapter.listData = data
@@ -52,21 +62,39 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val staggeredGridLayoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvItems.layoutManager = staggeredGridLayoutManager
-
+*/
         //카테고리 클릭 이벤트.. 나중에 토스트 대신 리사이클러뷰 내용 바꾸는 거로..
-        binding.cgHome.setOnClickListener {
-            adapter.listData = loadData(it)
-            adapter.notifyDataSetChanged() }
-        binding.cgCrowd.setOnClickListener {
-            adapter.listData = loadData(it)
-            adapter.notifyDataSetChanged()}
-        binding.cgComp.setOnClickListener {
-            adapter.listData = loadData(it)
-            adapter.notifyDataSetChanged()}
-        binding.cgProd.setOnClickListener {
-            adapter.listData = loadData(it)
-            adapter.notifyDataSetChanged()}
 
+
+
+    }
+
+
+    private val onClickedListItem = object : ProductAdapter.OnItemClickListener{
+        override fun onClicked(id: String) {
+            var intent = Intent(this@HomeActivity, DetailPurActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+    }
+
+    fun loadData(){
+        var str: String = "기업이나 상품"
+        data = mutableListOf()
+        for(no in 1..100){
+            val title = "$str 이름 ${no}"
+            val info = "$str 정보 ${no}"
+
+            var memo = Memo(title, info)
+            data.add(memo)
+        }
+        productAdapter.setData(data)
+
+        val staggeredGridLayoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.rvItems.layoutManager = staggeredGridLayoutManager
+
+        binding.rvItems.adapter = productAdapter
 
     }
 
@@ -81,26 +109,4 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         TODO("Not yet implemented")
     }
-
-    fun loadData(view: View): MutableList<Memo>{
-        val data: MutableList<Memo> = mutableListOf()
-        var str: String = ""
-        when(view){
-            binding.cgHome -> str="상품이나 기업"
-            binding.cgCrowd -> str="크라우드 펀딩"
-            binding.cgComp -> str="기업"
-            binding.cgProd -> str="상품"
-        }
-
-        for(no in 1..100){
-            val title = "$str 이름 ${no}"
-            val info = "$str 정보 ${no}"
-
-            var memo = Memo(title, info)
-            data.add(memo)
-        }
-
-        return data
-    }
-
 }

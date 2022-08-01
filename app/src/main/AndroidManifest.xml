@@ -20,6 +20,9 @@
             android:name="net.flow9.thisiskotlin.econg.DetailCompActivity"
             android:exported="false" />
         <activity
+            android:name="net.flow9.thisiskotlin.econg.DetailPurActivity"
+            android:exported="false" />
+        <activity
             android:name="net.flow9.thisiskotlin.econg.DetailFundActivity"
             android:exported="false" />
         <activity

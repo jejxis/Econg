@@ -49,6 +49,17 @@
             android:textAlignment="textStart"
             android:textColor="@color/hintTextColor"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/sub_info2"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:paddingStart="10dp"
+            android:text="기타정보2"
+            android:textAlignment="textStart"
+            android:textColor="@color/hintTextColor"
+            android:textSize="15sp"/>
     </LinearLayout>
 
 

@@ -133,7 +133,7 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
-                                android:id="@+id/productPrice"
+                                android:id="@+id/fundStat"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="펀딩현황"
@@ -141,10 +141,10 @@
                                 android:textSize="15sp" />
 
                             <TextView
-                                android:id="@+id/productInfo"
+                                android:id="@+id/fundDead"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="목표금액"
+                                android:text="마감기한"
                                 android:textColor="@color/black"
                                 android:textSize="15sp" />
 
@@ -152,7 +152,7 @@
                                 android:id="@+id/comInfo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="마감기한"
+                                android:text="회사이름"
                                 android:textColor="@color/black"
                                 android:textSize="15sp" />
 
@@ -183,7 +183,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvIngredients"
+                        android:id="@+id/productInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
