@@ -14,7 +14,7 @@ import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
 class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>() {
     var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수
     private var context: Context? = null
-    var listener: ProductAdapter.OnItemClickListener? = null
+    var listener: CrowdfundAdapter.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrowdfundHolder {//한 화면에 생성할 레이아웃 개수 = 한 화면에 생성할 아이템 개수-> 아이템 레이아웃 생성
         context = parent.context
@@ -39,7 +39,7 @@ class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>
         listData = arrData as ArrayList<Memo>
     }
 
-    fun setClickListener(listener1: ProductAdapter.OnItemClickListener){
+    fun setClickListener(listener1: CrowdfundAdapter.OnItemClickListener){
         listener = listener1
     }
 

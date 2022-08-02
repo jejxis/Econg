@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var crowdfundAdapter = CrowdfundAdapter()
     var companyAdapter = CompanyAdapter()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -49,26 +50,25 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.naviView.setNavigationItemSelectedListener(this)//내비게이션 메뉴 아이템에 클릭 속성 부여
 
-        loadData()
-        productAdapter.setClickListener(onClickedListItem)
         //recycler
-        /*var data: MutableList<Memo> = loadData(binding.cgHome)
+        loadData(binding.categoryHome)
+        productAdapter.setClickListener(onClickedListItem)
+        companyAdapter.setClickListener(onClickedCompanyListItem)
+        crowdfundAdapter.setClickListener(onClickedCrowdfundListItem)
 
-        var adapter = CustomAdapter()
-        adapter.listData = data
-
-        binding.rvItems.adapter = adapter
-
-        val staggeredGridLayoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvItems.layoutManager = staggeredGridLayoutManager
-*/
-        //카테고리 클릭 이벤트.. 나중에 토스트 대신 리사이클러뷰 내용 바꾸는 거로..
+        binding.categoryHome.setOnClickListener(OnClickedCategory)
+        binding.categoryCrowdfunding.setOnClickListener(OnClickedCategory)
+        binding.categoryCompany.setOnClickListener(OnClickedCategory)
+        binding.categoryProduct.setOnClickListener(OnClickedCategory)
 
 
 
     }
-
+    private val OnClickedCategory = object : View.OnClickListener{
+        override fun onClick(view: View?) {
+            loadData(view)
+        }
+    }
 
     private val onClickedListItem = object : ProductAdapter.OnItemClickListener{
         override fun onClicked(id: String) {
@@ -78,8 +78,33 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun loadData(){
+    private val onClickedCompanyListItem = object : CompanyAdapter.OnItemClickListener{
+        override fun onClicked(id: String) {
+            var intent = Intent(this@HomeActivity, DetailCompActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+    }
+
+    private val onClickedCrowdfundListItem = object : CrowdfundAdapter.OnItemClickListener{
+        override fun onClicked(id: String) {
+            var intent = Intent(this@HomeActivity, DetailFundActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+    }
+
+
+    fun loadData(view: View?){
         var str: String = "기업이나 상품"
+        with(binding){
+            str = when(view){
+                categoryCompany -> {"기업"}
+                categoryCrowdfunding -> {"크라우드 펀딩"}
+                categoryProduct -> {"상품"}
+                else -> {"기업이나 상품"}
+            }
+        }
         data = mutableListOf()
         for(no in 1..100){
             val title = "$str 이름 ${no}"
@@ -88,13 +113,38 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             var memo = Memo(title, info)
             data.add(memo)
         }
-        productAdapter.setData(data)
 
+        /*productAdapter.setData(data)
         val staggeredGridLayoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvItems.layoutManager = staggeredGridLayoutManager
+        binding.rvItems.adapter = productAdapter*/
+        with(binding){
+            when(view){
+                categoryCompany -> {
+                    companyAdapter.setData(data)
+                    val staggeredGridLayoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    binding.rvItems.layoutManager = staggeredGridLayoutManager
+                    binding.rvItems.adapter = companyAdapter
+                }
+                categoryCrowdfunding -> {
+                    crowdfundAdapter.setData(data)
+                    val staggeredGridLayoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    binding.rvItems.layoutManager = staggeredGridLayoutManager
+                    binding.rvItems.adapter = crowdfundAdapter
+                }
+                else -> {
+                    productAdapter.setData(data)
+                    val staggeredGridLayoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    binding.rvItems.layoutManager = staggeredGridLayoutManager
+                    binding.rvItems.adapter = productAdapter
+                }
+            }
+        }
 
-        binding.rvItems.adapter = productAdapter
 
     }
 

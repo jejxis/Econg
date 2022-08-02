@@ -16,7 +16,7 @@ import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
 class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
     var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수
     var context: Context? = null
-    var listener: ProductAdapter.OnItemClickListener? = null
+    var listener: CompanyAdapter.OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompanyHolder {//한 화면에 생성할 레이아웃 개수 = 한 화면에 생성할 아이템 개수-> 아이템 레이아웃 생성
         context = parent.context
@@ -41,7 +41,7 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
         listData = arrData as ArrayList<Memo>
     }
 
-    fun setClickListener(listener1: ProductAdapter.OnItemClickListener){
+    fun setClickListener(listener1: CompanyAdapter.OnItemClickListener){
         listener = listener1
     }
 
