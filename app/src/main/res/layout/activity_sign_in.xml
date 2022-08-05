@@ -87,7 +87,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSI"
+        android:id="@+id/btnGoToHome"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -104,12 +104,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:layout_marginTop="186dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/bg_btn"
         android:text="회원가입하기"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSI" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGoToHome" />
 </androidx.constraintlayout.widget.ConstraintLayout>
