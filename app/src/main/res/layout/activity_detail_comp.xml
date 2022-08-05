@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="net.flow9.thisiskotlin.econg.DetailCompActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,48 +50,54 @@
                     android:id="@+id/imgToolbarBtnBack"
                     android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/compName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="기업명"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView"
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="32dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/compName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/compName"
-                    app:srcCompat="@drawable/ic_baseline_star_outline_35"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:id="@+id/compInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="기업정보"
-                android:textAlignment="center"
-                android:textColor="@color/hintTextColor"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </com.google.android.material.appbar.AppBarLayout>
+                    android:padding="8dp"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/bg_btn"
+                    android:id="@+id/imgToolbarBtnFav"
+                    android:src="@drawable/ic_baseline_favorite_border_24"/>
 
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/compName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기업명"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/compInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기업정보"
+            android:textAlignment="center"
+            android:textColor="@color/hintTextColor"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items"
             android:layout_width="wrap_content"
@@ -104,6 +107,6 @@
             tools:itemCount="1"
             tools:listitem="@layout/item_items" />
     </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
