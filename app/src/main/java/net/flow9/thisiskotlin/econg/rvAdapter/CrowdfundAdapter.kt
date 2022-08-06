@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import net.flow9.thisiskotlin.econg.DetailFundActivity
+import net.flow9.thisiskotlin.econg.data.CrowdData
 import net.flow9.thisiskotlin.econg.data.Memo
+import net.flow9.thisiskotlin.econg.data.ProductData
 import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
 //크라우드펀딩
 class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>() {
-    var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수
+    var listData = mutableListOf<CrowdData>()//어댑터에서 사용할 목록변수
     private var context: Context? = null
     var listener: CrowdfundAdapter.OnItemClickListener? = null
 
@@ -23,11 +25,11 @@ class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>
     }
 
     override fun onBindViewHolder(holder: CrowdfundHolder, position: Int) {//아이템 레이아웃에 값 입력 후 출력 -> 생성된 뷰 홀더를 보여줌.
-        val memo = listData.get(position)
-        holder.setMemo(memo)
+        val data = listData.get(position)
+        holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(memo.title)
+            listener!!.onClicked(data.title)
         }
     }
 
@@ -35,8 +37,8 @@ class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>
         return listData.size
     }
 
-    fun setData(arrData : MutableList<Memo>){
-        listData = arrData as ArrayList<Memo>
+    fun setData(arrData : MutableList<CrowdData>?){
+        listData = arrData as ArrayList<CrowdData>
     }
 
     fun setClickListener(listener1: CrowdfundAdapter.OnItemClickListener){
@@ -45,9 +47,10 @@ class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>
 
     inner class CrowdfundHolder(val binding: ItemItemsBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun setMemo(memo: Memo) {
-            binding.subName.text = "${memo.title}"
-            binding.subInfo.text = "${memo.info}"
+        fun setData(data: CrowdData) {
+            binding.subName.text = "${data.title}"
+            binding.subInfo.text = "${data.price}"
+            binding.subInfo2.text = "${data.companyName}"
         }
 
     }

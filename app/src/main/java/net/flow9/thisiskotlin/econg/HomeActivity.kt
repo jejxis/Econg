@@ -13,18 +13,27 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import net.flow9.thisiskotlin.econg.data.CompanyData
+import net.flow9.thisiskotlin.econg.data.CrowdData
 import net.flow9.thisiskotlin.econg.data.Memo
+import net.flow9.thisiskotlin.econg.data.ProductData
 import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
+import net.flow9.thisiskotlin.econg.retrofit.RetrofitManager
 import net.flow9.thisiskotlin.econg.rvAdapter.CompanyAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.CrowdfundAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
+import net.flow9.thisiskotlin.econg.utils.API
+import net.flow9.thisiskotlin.econg.utils.Contants.TAG
+import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
 
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
     val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
 
-    var data: MutableList<Memo> = mutableListOf()
+    var productData: MutableList<ProductData>? = mutableListOf()
+    var companyData: MutableList<CompanyData>? = mutableListOf()
+    var crowdData: MutableList<CrowdData>? = mutableListOf()
     var productAdapter = ProductAdapter()
     var crowdfundAdapter = CrowdfundAdapter()
     var companyAdapter = CompanyAdapter()
@@ -96,56 +105,90 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     fun loadData(view: View?){
-        var str: String = "기업이나 상품"
-        with(binding){
-            str = when(view){
-                categoryCompany -> {"기업"}
-                categoryCrowdfunding -> {"크라우드 펀딩"}
-                categoryProduct -> {"상품"}
-                else -> {"기업이나 상품"}
-            }
-        }
-        data = mutableListOf()
-        for(no in 1..100){
-            val title = "$str 이름 ${no}"
-            val info = "$str 정보 ${no}"
-
-            var memo = Memo(title, info)
-            data.add(memo)
-        }
-
-        /*productAdapter.setData(data)
-        val staggeredGridLayoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.rvItems.layoutManager = staggeredGridLayoutManager
-        binding.rvItems.adapter = productAdapter*/
-        with(binding){
-            when(view){
-                categoryCompany -> {
-                    companyAdapter.setData(data)
-                    val staggeredGridLayoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                    binding.rvItems.layoutManager = staggeredGridLayoutManager
-                    binding.rvItems.adapter = companyAdapter
+        if(view == binding.categoryHome){
+            RetrofitManager.instance.productsAll(auth = API.HEADER_TOKEN, completion = {
+                    responseState, responseBody ->
+                when(responseState){
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "api call success : ${responseBody.toString()}")
+                        productData = responseBody
+                        //Log.d(TAG, "responseBody to productData : ${productData.toString()}")
+                        productAdapter.setData(productData)
+                        val staggeredGridLayoutManager =
+                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                        binding.rvItems.layoutManager = staggeredGridLayoutManager
+                        binding.rvItems.adapter = productAdapter
+                    }
+                    RESPONSE_STATE.FAIL -> {
+                        Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "api call fail : $responseBody")
+                    }
                 }
-                categoryCrowdfunding -> {
-                    crowdfundAdapter.setData(data)
-                    val staggeredGridLayoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                    binding.rvItems.layoutManager = staggeredGridLayoutManager
-                    binding.rvItems.adapter = crowdfundAdapter
-                }
-                else -> {
-                    productAdapter.setData(data)
-                    val staggeredGridLayoutManager =
-                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                    binding.rvItems.layoutManager = staggeredGridLayoutManager
-                    binding.rvItems.adapter = productAdapter
-                }
-            }
+            })
         }
-
-
+        else if(view == binding.categoryProduct){
+            RetrofitManager.instance.productsOnly(auth = API.HEADER_TOKEN, completion = {
+                    responseState, responseBody ->
+                when(responseState){
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "api call success : ${responseBody.toString()}")
+                        productData = responseBody
+                        //Log.d(TAG, "responseBody to productData : ${productData.toString()}")
+                        productAdapter.setData(productData)
+                        val staggeredGridLayoutManager =
+                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                        binding.rvItems.layoutManager = staggeredGridLayoutManager
+                        binding.rvItems.adapter = productAdapter
+                    }
+                    RESPONSE_STATE.FAIL -> {
+                        Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "api call fail : $responseBody")
+                    }
+                }
+            })
+        }
+        else if(view == binding.categoryCrowdfunding){
+            RetrofitManager.instance.productsCrowd(auth = API.HEADER_TOKEN, completion = {
+                    responseState, responseBody ->
+                when(responseState){
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "api call success : ${responseBody.toString()}")
+                        crowdData = responseBody
+                        //Log.d(TAG, "responseBody to productData : ${productData.toString()}")
+                        crowdfundAdapter.setData(crowdData)
+                        val staggeredGridLayoutManager =
+                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                        binding.rvItems.layoutManager = staggeredGridLayoutManager
+                        binding.rvItems.adapter = crowdfundAdapter
+                    }
+                    RESPONSE_STATE.FAIL -> {
+                        Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "api call fail : $responseBody")
+                    }
+                }
+            })
+        }
+        else if(view == binding.categoryCompany){
+            RetrofitManager.instance.companies(auth = API.HEADER_TOKEN, completion = {
+                    responseState, responseBody ->
+                when(responseState){
+                    RESPONSE_STATE.OKAY -> {
+                        Log.d(TAG, "api call success : ${responseBody.toString()}")
+                        companyData = responseBody
+                        //Log.d(TAG, "responseBody to productData : ${productData.toString()}")
+                        companyAdapter.setData(companyData)
+                        val staggeredGridLayoutManager =
+                            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                        binding.rvItems.layoutManager = staggeredGridLayoutManager
+                        binding.rvItems.adapter = companyAdapter
+                    }
+                    RESPONSE_STATE.FAIL -> {
+                        Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "api call fail : $responseBody")
+                    }
+                }
+            })
+        }
     }
 
     override fun onBackPressed() {
