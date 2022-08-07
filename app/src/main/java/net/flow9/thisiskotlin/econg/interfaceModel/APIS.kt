@@ -7,6 +7,7 @@ import net.flow9.thisiskotlin.econg.data.Login
 import net.flow9.thisiskotlin.econg.data.PostLogin
 import net.flow9.thisiskotlin.econg.data.PostRegister
 import net.flow9.thisiskotlin.econg.samplePreference.AuthInterceptor
+import net.flow9.thisiskotlin.econg.samplePreference.MyApplication
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -29,7 +30,7 @@ interface APIS {
 
     @GET("/app/products/{productId}")
     @Headers("content-type: application/json")
-    fun get_product_detail(@Header("Authorization") auth: String,//added by jina
+    fun get_product_detail(//@Header("Authorization") auth: String,//added by jina
         @Path("productId") id:String
     ): Call<GetProductDetail>
 

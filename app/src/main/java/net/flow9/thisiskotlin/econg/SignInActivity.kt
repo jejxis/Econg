@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SignInActivity : AppCompatActivity() {
     val binding by lazy { ActivitySignInBinding.inflate(layoutInflater)}
-//    private val api = APIS.create();
+    //    private val api = APIS.create();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -55,6 +55,7 @@ class SignInActivity : AppCompatActivity() {
                     Log.d("log", response.body().toString())
 
                     MyApplication.prefs.token = response.body()?.token.toString()
+                    Log.d("log", MyApplication.prefs.token!!)
                     val intent = Intent(this@SignInActivity, HomeActivity::class.java)
                     startActivity(intent)
                     finish()
