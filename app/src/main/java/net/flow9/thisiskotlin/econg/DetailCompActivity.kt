@@ -4,28 +4,24 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import net.flow9.thisiskotlin.econg.R
-import net.flow9.thisiskotlin.econg.data.CompanyData
-import net.flow9.thisiskotlin.econg.data.Memo
-import net.flow9.thisiskotlin.econg.data.ProductData
+import net.flow9.thisiskotlin.econg.data.*
 import net.flow9.thisiskotlin.econg.databinding.ActivityDetailCompBinding
-import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
-import net.flow9.thisiskotlin.econg.retrofit.RetrofitManager
+import net.flow9.thisiskotlin.econg.interfaceModel.APIS
 import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
-import net.flow9.thisiskotlin.econg.utils.API
 import net.flow9.thisiskotlin.econg.utils.Contants
 import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailCompActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityDetailCompBinding.inflate(layoutInflater)}
     val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
-
+    val api = APIS.create()
     var data: MutableList<ProductData>? = mutableListOf()
     var productAdapter = ProductAdapter()
 
@@ -33,12 +29,32 @@ class DetailCompActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if(intent.hasExtra("id")){
-            binding.compName.text = intent.getStringExtra("id")
+        val id = intent.getStringExtra("id")?.toLong()
+        if (id != null) {
+            api.get_company_detail(id)
+                .enqueue(object : Callback<GetCompanyDetail> {
+                    override fun onResponse(
+                        call: Call<GetCompanyDetail>,
+                        response: Response<GetCompanyDetail>
+                    ) {
+                        Log.d("log", response.toString())
+                        Log.d("log", response.body().toString())
+                        binding.compName.text = response.body()?.companyName.toString()
+
+                        loadData(response.body()?.productList)
+                        productAdapter.setClickListener(onClickedListItem)
+                    }
+
+                    override fun onFailure(call: Call<GetCompanyDetail>, t: Throwable) {
+                        // 실패
+                        Log.d("log", t.message.toString())
+                        Log.d("log", "fail")
+                    }
+
+                })
         }
 
-        loadData()
-        productAdapter.setClickListener(onClickedListItem)
+
     }
 
     private val onClickedListItem = object : ProductAdapter.OnItemClickListener{
@@ -49,7 +65,7 @@ class DetailCompActivity : AppCompatActivity() {
         }
     }
 
-    fun loadData(){
+    fun loadData(productList: List<ProductData>?) {
         /*var str: String = "상품"
         data = mutableListOf()
         for(no in 1..100){
@@ -60,21 +76,30 @@ class DetailCompActivity : AppCompatActivity() {
             data.add(memo)
         }*/
 
-        RetrofitManager.instance.productsAll(auth = API.HEADER_TOKEN, completion = {
-                responseState, responseBody ->
-            when(responseState){
-                RESPONSE_STATE.OKAY -> {
-                    Log.d(Contants.TAG, "api call success : ${responseBody?.size}")
-                    data = responseBody
-                }
-                RESPONSE_STATE.FAIL -> {
-                    Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
-                    Log.d(Contants.TAG, "api call fail : $responseBody")
-                }
-            }
-        })
+        var parsedDataArray = ArrayList<ProductData>()
 
-        productAdapter.setData(data)
+        if (productList != null) {
+            productList.forEach{    resultItem ->
+                val id = resultItem.id
+                val title = resultItem.title
+                val imgUrl = resultItem.imgUrl.toString()
+                val companyName = resultItem.companyName
+                val price = resultItem.price
+                val productType = resultItem.productType
+
+                val product = ProductData(
+                    id = id,
+                    title = title,
+                    imgUrl = imgUrl,
+                    companyName = companyName,
+                    price = price,
+                    productType = productType
+                )
+                parsedDataArray.add(product)
+            }
+        }
+
+        productAdapter.setData(parsedDataArray)
         val staggeredGridLayoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvItems.layoutManager = staggeredGridLayoutManager

@@ -63,6 +63,8 @@ class RetrofitManager {
                                 val companyName = resultItemObject.get("companyName").asString
                                 val price = resultItemObject.get("price").asInt
                                 val productType = resultItemObject.get("productType").asString
+                                val productType = resultItemObject.get("productType").asString
+
 
                                 val home = HomeData(
                                     id = id,
