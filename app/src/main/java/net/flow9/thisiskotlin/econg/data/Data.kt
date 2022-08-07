@@ -5,7 +5,8 @@ data class ProductData (
     var title: String,
     var imgUrl: String,
     var companyName: String,
-    var price: Int
+    var price: Int,
+    var productType : String
     )
 
 data class CrowdData (
