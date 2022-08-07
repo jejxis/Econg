@@ -64,9 +64,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //recycler
         loadData(binding.categoryHome)
+
         productAdapter.setClickListener(onClickedListItem)
         companyAdapter.setClickListener(onClickedCompanyListItem)
         crowdfundAdapter.setClickListener(onClickedCrowdfundListItem)
+        homeAdapter.setClickListener(onClickedHomeListItem)
 
         binding.categoryHome.setOnClickListener(OnClickedCategory)
         binding.categoryCrowdfunding.setOnClickListener(OnClickedCategory)
@@ -81,7 +83,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             loadData(view)
         }
     }
-    private val OnClickedHomeItem = object : HomeAdapter.OnItemClickListener{
+    private val onClickedHomeListItem = object : HomeAdapter.OnItemClickListener{
         override fun onClicked(id: String, productType: String) {
             if(productType == "CROWD"){
                 var intent = Intent(this@HomeActivity, DetailFundActivity::class.java)

@@ -10,6 +10,7 @@ import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.data.*
 import net.flow9.thisiskotlin.econg.databinding.ActivityDetailCompBinding
 import net.flow9.thisiskotlin.econg.interfaceModel.APIS
+import net.flow9.thisiskotlin.econg.rvAdapter.HomeAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
 import net.flow9.thisiskotlin.econg.utils.Contants
 import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
@@ -22,8 +23,8 @@ class DetailCompActivity : AppCompatActivity() {
     val binding by lazy { ActivityDetailCompBinding.inflate(layoutInflater)}
     val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
     val api = APIS.create()
-    var data: MutableList<ProductData>? = mutableListOf()
-    var productAdapter = ProductAdapter()
+    var data: MutableList<HomeData>? = mutableListOf()
+    var homeAdapter = HomeAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +43,7 @@ class DetailCompActivity : AppCompatActivity() {
                         binding.compName.text = response.body()?.companyName.toString()
 
                         loadData(response.body()?.productList)
-                        productAdapter.setClickListener(onClickedListItem)
+                        homeAdapter.setClickListener(onClickedHomeListItem)
                     }
 
                     override fun onFailure(call: Call<GetCompanyDetail>, t: Throwable) {
@@ -57,11 +58,18 @@ class DetailCompActivity : AppCompatActivity() {
 
     }
 
-    private val onClickedListItem = object : ProductAdapter.OnItemClickListener{
-        override fun onClicked(id: String) {
-            var intent = Intent(this@DetailCompActivity, DetailPurActivity::class.java)
-            intent.putExtra("id", id)
-            startActivity(intent)
+    private val onClickedHomeListItem = object : HomeAdapter.OnItemClickListener{
+        override fun onClicked(id: String, productType: String) {
+            if(productType == "CROWD"){
+                var intent = Intent(this@DetailCompActivity, DetailFundActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
+            }
+            else if(productType == "SELLPRODUCT"){
+                var intent = Intent(this@DetailCompActivity, DetailPurActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
+            }
         }
     }
 
@@ -76,7 +84,7 @@ class DetailCompActivity : AppCompatActivity() {
             data.add(memo)
         }*/
 
-        var parsedDataArray = ArrayList<ProductData>()
+        var parsedDataArray = ArrayList<HomeData>()
 
         if (productList != null) {
             productList.forEach{    resultItem ->
@@ -87,7 +95,7 @@ class DetailCompActivity : AppCompatActivity() {
                 val price = resultItem.price
                 val productType = resultItem.productType
 
-                val product = ProductData(
+                val home = HomeData(
                     id = id,
                     title = title,
                     imgUrl = imgUrl,
@@ -95,15 +103,15 @@ class DetailCompActivity : AppCompatActivity() {
                     price = price,
                     productType = productType
                 )
-                parsedDataArray.add(product)
+                parsedDataArray.add(home)
             }
         }
 
-        productAdapter.setData(parsedDataArray)
+        homeAdapter.setData(parsedDataArray)
         val staggeredGridLayoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.rvItems.layoutManager = staggeredGridLayoutManager
-        binding.rvItems.adapter = productAdapter
+        binding.rvItems.adapter = homeAdapter
 
 
     }

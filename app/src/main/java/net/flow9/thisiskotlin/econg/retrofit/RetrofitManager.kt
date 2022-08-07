@@ -63,7 +63,6 @@ class RetrofitManager {
                                 val companyName = resultItemObject.get("companyName").asString
                                 val price = resultItemObject.get("price").asInt
                                 val productType = resultItemObject.get("productType").asString
-                                val productType = resultItemObject.get("productType").asString
 
 
                                 val home = HomeData(
@@ -122,13 +121,15 @@ class RetrofitManager {
                                 val imgUrl = resultItemObject.get("imgUrl").asString
                                 val companyName = resultItemObject.get("companyName").asString
                                 val price = resultItemObject.get("price").asInt
+                                val productType = resultItemObject.get("productType").asString
 
                                 val crowd = CrowdData(
                                     id = id,
                                     title = title,
                                     imgUrl = imgUrl,
                                     companyName = companyName,
-                                    price = price
+                                    price = price,
+                                    productType = productType
                                 )
                                 parsedDataArray.add(crowd)
                             }
@@ -180,13 +181,15 @@ class RetrofitManager {
                                 val imgUrl = resultItemObject.get("imgUrl").asString
                                 val companyName = resultItemObject.get("companyName").asString
                                 val price = resultItemObject.get("price").asInt
+                                val productType = resultItemObject.get("productType").asString
 
                                 val product = ProductData(
                                     id = id,
                                     title = title,
                                     imgUrl = imgUrl,
                                     companyName = companyName,
-                                    price = price
+                                    price = price,
+                                    productType = productType
                                 )
                                 parsedDataArray.add(product)
                             }
