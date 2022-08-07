@@ -75,6 +75,7 @@ class SignInActivity : AppCompatActivity() {
 
         binding.btnGoToSU.setOnClickListener {
             val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
+            finish()
             startActivity(intent)
         }
     }

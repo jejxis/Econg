@@ -9,12 +9,13 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import net.flow9.thisiskotlin.econg.DetailCompActivity
+import net.flow9.thisiskotlin.econg.data.CompanyData
 import net.flow9.thisiskotlin.econg.data.Memo
 import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
 
 //기업
 class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
-    var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수
+    var listData = mutableListOf<CompanyData>()//어댑터에서 사용할 목록변수
     var context: Context? = null
     var listener: CompanyAdapter.OnItemClickListener? = null
 
@@ -25,11 +26,11 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
     }
 
     override fun onBindViewHolder(holder: CompanyHolder, position: Int) {//아이템 레이아웃에 값 입력 후 출력 -> 생성된 뷰 홀더를 보여줌.
-        val memo = listData.get(position)
-        holder.setMemo(memo)
+        val data = listData.get(position)
+        holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(memo.title)
+            listener!!.onClicked(data.companyId.toString())
         }
     }
 
@@ -37,8 +38,8 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
         return listData.size
     }
 
-    fun setData(arrData : MutableList<Memo>){
-        listData = arrData as ArrayList<Memo>
+    fun setData(arrData : MutableList<CompanyData>?){
+        listData = arrData as ArrayList<CompanyData>
     }
 
     fun setClickListener(listener1: CompanyAdapter.OnItemClickListener){
@@ -47,11 +48,12 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
 
     inner class CompanyHolder(val binding: ItemItemsBinding): RecyclerView.ViewHolder(binding.root){
         init{
-            binding.subInfo2.isGone
+            binding.subInfo2.text = ""
+            binding.subInfo.text = ""
         }
-        fun setMemo(memo: Memo) {
-            binding.subName.text = "${memo.title}"
-            binding.subInfo.text = "${memo.info}"
+        fun setData(data: CompanyData) {
+            binding.subName.text = "${data.companyName}"
+
         }
 
     }

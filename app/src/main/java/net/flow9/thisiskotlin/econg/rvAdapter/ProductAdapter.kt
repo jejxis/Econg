@@ -2,6 +2,7 @@ package net.flow9.thisiskotlin.econg.rvAdapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import net.flow9.thisiskotlin.econg.DetailFundActivity
 import net.flow9.thisiskotlin.econg.DetailPurActivity
 import net.flow9.thisiskotlin.econg.data.Memo
+import net.flow9.thisiskotlin.econg.data.ProductData
 import net.flow9.thisiskotlin.econg.databinding.ItemItemsBinding
+import net.flow9.thisiskotlin.econg.utils.Contants
+
 //상품
 class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
-    var listData = mutableListOf<Memo>()//어댑터에서 사용할 목록변수
+    var listData = mutableListOf<ProductData>()//어댑터에서 사용할 목록변수
     var context: Context? = null
     var listener: ProductAdapter.OnItemClickListener? = null
 
@@ -25,11 +29,11 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
     }
 
     override fun onBindViewHolder(holder: ProductHolder, position: Int) {//아이템 레이아웃에 값 입력 후 출력 -> 생성된 뷰 홀더를 보여줌.
-        val memo = listData.get(position)
-        holder.setMemo(memo)
+        val data = listData.get(position)
+        holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(memo.title)
+            listener!!.onClicked(data.id.toString())
         }
     }
 
@@ -37,8 +41,8 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
         return listData.size
     }
 
-    fun setData(arrData : MutableList<Memo>){
-        listData = arrData as ArrayList<Memo>
+    fun setData(arrData : MutableList<ProductData>?){
+        listData = arrData as ArrayList<ProductData>
     }
 
     fun setClickListener(listener1: ProductAdapter.OnItemClickListener){
@@ -46,9 +50,10 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
     }
 
     inner class ProductHolder(val binding: ItemItemsBinding): RecyclerView.ViewHolder(binding.root){
-        fun setMemo(memo: Memo) {
-            binding.subName.text = "${memo.title}"
-            binding.subInfo.text = "${memo.info}"
+        fun setData(data: ProductData) {
+            binding.subName.text = "${data.title}"
+            binding.subInfo.text = "${data.price}"
+            binding.subInfo2.text = "${data.companyName}"
         }
 
     }
