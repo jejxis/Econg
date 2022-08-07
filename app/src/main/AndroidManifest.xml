@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.flow9.thisiskotlin.econg">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -9,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EcongDesign">
+        android:theme="@style/Theme.EcongDesign"
+        android:name="net.flow9.thisiskotlin.econg.samplePreference.MyApplication">
         <activity
             android:name="net.flow9.thisiskotlin.econg.SignInActivity"
             android:exported="true">
@@ -44,5 +46,4 @@
             </intent-filter>
         </activity-->
     </application>
-
 </manifest>
