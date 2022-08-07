@@ -54,7 +54,7 @@ class SignInActivity : AppCompatActivity() {
                     Log.d("log",response.toString())
                     Log.d("log", response.body().toString())
 
-                    MyApplication.prefs.token = response.body().toString()
+                    MyApplication.prefs.token = response.body()?.token.toString()
                     val intent = Intent(this@SignInActivity, HomeActivity::class.java)
                     startActivity(intent)
                     finish()

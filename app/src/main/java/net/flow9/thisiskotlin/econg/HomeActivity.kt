@@ -22,6 +22,7 @@ import net.flow9.thisiskotlin.econg.retrofit.RetrofitManager
 import net.flow9.thisiskotlin.econg.rvAdapter.CompanyAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.CrowdfundAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
+import net.flow9.thisiskotlin.econg.samplePreference.MyApplication
 import net.flow9.thisiskotlin.econg.utils.API
 import net.flow9.thisiskotlin.econg.utils.Contants.TAG
 import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
@@ -30,6 +31,7 @@ import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
     val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
+    //val token = MyApplication.prefs.token
 
     var productData: MutableList<ProductData>? = mutableListOf()
     var companyData: MutableList<CompanyData>? = mutableListOf()

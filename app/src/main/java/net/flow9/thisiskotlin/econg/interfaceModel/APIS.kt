@@ -29,7 +29,7 @@ interface APIS {
 
     @GET("/app/products/{productId}")
     @Headers("content-type: application/json")
-    fun get_product_detail(
+    fun get_product_detail(@Header("Authorization") auth: String,//added by jina
         @Path("productId") id:String
     ): Call<GetProductDetail>
 
