@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.gson.JsonElement
 import net.flow9.thisiskotlin.econg.data.CompanyData
 import net.flow9.thisiskotlin.econg.data.CrowdData
+import net.flow9.thisiskotlin.econg.data.HomeData
 import net.flow9.thisiskotlin.econg.data.ProductData
 import net.flow9.thisiskotlin.econg.utils.API
 import net.flow9.thisiskotlin.econg.utils.Contants.TAG
@@ -23,7 +24,7 @@ class RetrofitManager {
     private val iRetrofit : IRetrofit? = RetrofitClient.getClient(API.BASE_URL)?.create(IRetrofit::class.java)
 
     //전체 상품 조회(API 4) 호출
-    fun productsAll(auth: String?, completion: (RESPONSE_STATE, ArrayList<ProductData>?) -> Unit){
+    fun productsAll(auth: String?, completion: (RESPONSE_STATE, ArrayList<HomeData>?) -> Unit){
 
         var au = auth.let{
             it
@@ -47,7 +48,7 @@ class RetrofitManager {
                 when(response.code()){
                     200 -> {
                         response.body()?.let{
-                            var parsedDataArray = ArrayList<ProductData>()
+                            var parsedDataArray = ArrayList<HomeData>()
                             val body = it.asJsonArray
                             //val body = it.asJsonObject
                             //val results = body.getAsJsonArray("result")
@@ -61,15 +62,17 @@ class RetrofitManager {
                                 val imgUrl = resultItemObject.get("imgUrl").asString
                                 val companyName = resultItemObject.get("companyName").asString
                                 val price = resultItemObject.get("price").asInt
+                                val productType = resultItemObject.get("productType").asString
 
-                                val product = ProductData(
+                                val home = HomeData(
                                     id = id,
                                     title = title,
                                     imgUrl = imgUrl,
                                     companyName = companyName,
-                                    price = price
+                                    price = price,
+                                    productType = productType
                                 )
-                                parsedDataArray.add(product)
+                                parsedDataArray.add(home)
                             }
                             completion(RESPONSE_STATE.OKAY, parsedDataArray)
                         }

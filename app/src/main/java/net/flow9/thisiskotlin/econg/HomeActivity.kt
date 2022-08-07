@@ -13,14 +13,12 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-import net.flow9.thisiskotlin.econg.data.CompanyData
-import net.flow9.thisiskotlin.econg.data.CrowdData
-import net.flow9.thisiskotlin.econg.data.Memo
-import net.flow9.thisiskotlin.econg.data.ProductData
+import net.flow9.thisiskotlin.econg.data.*
 import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
 import net.flow9.thisiskotlin.econg.retrofit.RetrofitManager
 import net.flow9.thisiskotlin.econg.rvAdapter.CompanyAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.CrowdfundAdapter
+import net.flow9.thisiskotlin.econg.rvAdapter.HomeAdapter
 import net.flow9.thisiskotlin.econg.rvAdapter.ProductAdapter
 import net.flow9.thisiskotlin.econg.samplePreference.MyApplication
 import net.flow9.thisiskotlin.econg.utils.API
@@ -36,9 +34,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     var productData: MutableList<ProductData>? = mutableListOf()
     var companyData: MutableList<CompanyData>? = mutableListOf()
     var crowdData: MutableList<CrowdData>? = mutableListOf()
+    var homeData: MutableList<HomeData>? = mutableListOf()
+
     var productAdapter = ProductAdapter()
     var crowdfundAdapter = CrowdfundAdapter()
     var companyAdapter = CompanyAdapter()
+    var homeAdapter = HomeAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +81,20 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             loadData(view)
         }
     }
+    private val OnClickedHomeItem = object : HomeAdapter.OnItemClickListener{
+        override fun onClicked(id: String, productType: String) {
+            if(productType == "CROWD"){
+                var intent = Intent(this@HomeActivity, DetailFundActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
+            }
+            else if(productType == "SELLPRODUCT"){
+                var intent = Intent(this@HomeActivity, DetailPurActivity::class.java)
+                intent.putExtra("id", id)
+                startActivity(intent)
+            }
+        }
+    }
 
     private val onClickedListItem = object : ProductAdapter.OnItemClickListener{
         override fun onClicked(id: String) {
@@ -113,13 +128,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 when(responseState){
                     RESPONSE_STATE.OKAY -> {
                         Log.d(TAG, "api call success : ${responseBody.toString()}")
-                        productData = responseBody
+                        homeData = responseBody
                         //Log.d(TAG, "responseBody to productData : ${productData.toString()}")
-                        productAdapter.setData(productData)
+                        homeAdapter.setData(homeData)
                         val staggeredGridLayoutManager =
                             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
                         binding.rvItems.layoutManager = staggeredGridLayoutManager
-                        binding.rvItems.adapter = productAdapter
+                        binding.rvItems.adapter = homeAdapter
                     }
                     RESPONSE_STATE.FAIL -> {
                         Toast.makeText(this, "api call error", Toast.LENGTH_SHORT).show()
