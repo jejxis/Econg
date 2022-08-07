@@ -3,6 +3,7 @@ package net.flow9.thisiskotlin.econg
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import net.flow9.thisiskotlin.econg.data.GetProductDetail
 import net.flow9.thisiskotlin.econg.databinding.ActivityDetailFundBinding
 import net.flow9.thisiskotlin.econg.interfaceModel.APIS
@@ -14,6 +15,8 @@ class DetailFundActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityDetailFundBinding.inflate(layoutInflater)}
     val api = APIS.create()
+    val moneyGoal : Double = 50000.0
+    var moneyNow : Double = 25000.0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -52,6 +55,13 @@ class DetailFundActivity : AppCompatActivity() {
         }
         if(intent.hasExtra("info2")){
             binding.fundDead.text = intent.getStringExtra("info2")
+        }
+        binding.progressBar.progress = (moneyNow/moneyGoal*100).toInt()
+
+        binding.btnFund.setOnClickListener {
+            moneyNow += 5000
+            binding.progressBar.progress = (moneyNow/moneyGoal*100).toInt()
+            Toast.makeText(this, "5000원을 펀딩했습니다. 목표금액:50000원, 펀딩현황: ${(moneyNow/moneyGoal*100).toInt()}%", Toast.LENGTH_LONG).show()
         }
     }
 }
