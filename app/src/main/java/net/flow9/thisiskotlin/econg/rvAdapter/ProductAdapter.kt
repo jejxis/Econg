@@ -33,7 +33,7 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
         holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(data.title)
+            listener!!.onClicked(data.id.toString())
         }
     }
 

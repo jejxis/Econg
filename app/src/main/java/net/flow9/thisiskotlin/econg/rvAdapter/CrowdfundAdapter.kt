@@ -29,7 +29,7 @@ class CrowdfundAdapter(): RecyclerView.Adapter<CrowdfundAdapter.CrowdfundHolder>
         holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(data.title)
+            listener!!.onClicked(data.id.toString())
         }
     }
 

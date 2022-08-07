@@ -13,8 +13,8 @@ class DetailFundActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if(intent.hasExtra("name")){
-            binding.productName.text = intent.getStringExtra("name")
+        if(intent.hasExtra("id")){
+            binding.productName.text = intent.getStringExtra("id")
         }
         if(intent.hasExtra("info")){
             binding.fundStat.text = intent.getStringExtra("info")

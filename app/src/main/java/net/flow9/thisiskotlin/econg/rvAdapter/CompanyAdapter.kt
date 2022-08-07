@@ -30,7 +30,7 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
         holder.setData(data)
 
         holder.itemView.rootView.setOnClickListener {
-            listener!!.onClicked(data.companyName)
+            listener!!.onClicked(data.companyId.toString())
         }
     }
 
@@ -48,11 +48,12 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
 
     inner class CompanyHolder(val binding: ItemItemsBinding): RecyclerView.ViewHolder(binding.root){
         init{
-            binding.subInfo2.isGone
-            binding.subInfo.isGone
+            binding.subInfo2.text = ""
+            binding.subInfo.text = ""
         }
         fun setData(data: CompanyData) {
             binding.subName.text = "${data.companyName}"
+
         }
 
     }

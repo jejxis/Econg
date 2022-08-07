@@ -33,11 +33,8 @@ class DetailCompActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if(intent.hasExtra("name")){
-            binding.compName.text = intent.getStringExtra("name")
-        }
-        if(intent.hasExtra("info")){
-            binding.compInfo.text = intent.getStringExtra("info")
+        if(intent.hasExtra("id")){
+            binding.compName.text = intent.getStringExtra("id")
         }
 
         loadData()
