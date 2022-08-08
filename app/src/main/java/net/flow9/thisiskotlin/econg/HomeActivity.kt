@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import net.flow9.thisiskotlin.econg.R.*
 import net.flow9.thisiskotlin.econg.data.*
 import net.flow9.thisiskotlin.econg.databinding.ActivityHomeBinding
 import net.flow9.thisiskotlin.econg.retrofit.RetrofitManager
@@ -63,26 +65,32 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.naviView.setNavigationItemSelectedListener(this)//내비게이션 메뉴 아이템에 클릭 속성 부여
 
         //recycler
-        loadData(binding.categoryHome)
+        loadData(binding.cgHome)
 
         productAdapter.setClickListener(onClickedListItem)
         companyAdapter.setClickListener(onClickedCompanyListItem)
         crowdfundAdapter.setClickListener(onClickedCrowdfundListItem)
         homeAdapter.setClickListener(onClickedHomeListItem)
 
-        binding.categoryHome.setOnClickListener(OnClickedCategory)
-        binding.categoryCrowdfunding.setOnClickListener(OnClickedCategory)
-        binding.categoryCompany.setOnClickListener(OnClickedCategory)
-        binding.categoryProduct.setOnClickListener(OnClickedCategory)
+        binding.cgHome.setOnClickListener {
+            categoryChange(binding.cgHome)
+            loadData(binding.cgHome) }
+        binding.cgCrowd.setOnClickListener{
+            categoryChange(binding.cgCrowd)
+            loadData(binding.cgCrowd) }
+        binding.cgComp.setOnClickListener{
+            categoryChange(binding.cgComp)
+            loadData(binding.cgComp) }
+        binding.cgProd.setOnClickListener{
+            categoryChange(binding.cgProd)
+            loadData(binding.cgProd) }
 
 
 
     }
-    private val OnClickedCategory = object : View.OnClickListener{
-        override fun onClick(view: View?) {
-            loadData(view)
-        }
-    }
+   /* private val OnClickedCategory = object : View.OnClickListener{
+        loadData(this)
+    }*/
     private val onClickedHomeListItem = object : HomeAdapter.OnItemClickListener{
         override fun onClicked(id: String, productType: String) {
             if(productType == "CROWD"){
@@ -122,9 +130,31 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    fun categoryChange(btn: Button?){
+        btn!!.setBackgroundResource(drawable.bg_category_selected)
+        btn!!.setTextColor(resources.getColor(color.white, null))
+        if(btn != binding.cgHome) {
+            binding.cgHome.setBackgroundResource(drawable.bg_category)
+            binding.cgHome.setTextColor(resources.getColor(color.hintTextColor, null))
+        }
+        if(btn != binding.cgCrowd) {
+            binding.cgCrowd.setBackgroundResource(drawable.bg_category)
+            binding.cgCrowd.setTextColor(resources.getColor(color.hintTextColor, null))
+        }
+        if(btn != binding.cgProd) {
+            binding.cgProd.setBackgroundResource(drawable.bg_category)
+            binding.cgProd.setTextColor(resources.getColor(color.hintTextColor, null))
+        }
+        if(btn != binding.cgComp) {
+            binding.cgComp.setBackgroundResource(drawable.bg_category)
+            binding.cgComp.setTextColor(resources.getColor(color.hintTextColor, null))
+        }
 
-    fun loadData(view: View?){
-        if(view == binding.categoryHome){
+    }
+
+
+    fun loadData(view: Button?){//View? -> Button?
+        if(view == binding.cgHome){
             RetrofitManager.instance.productsAll(auth = API.HEADER_TOKEN, completion = {
                     responseState, responseBody ->
                 when(responseState){
@@ -145,7 +175,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             })
         }
-        else if(view == binding.categoryProduct){
+        else if(view == binding.cgProd){
             RetrofitManager.instance.productsOnly(auth = API.HEADER_TOKEN, completion = {
                     responseState, responseBody ->
                 when(responseState){
@@ -166,7 +196,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             })
         }
-        else if(view == binding.categoryCrowdfunding){
+        else if(view == binding.cgCrowd){
             RetrofitManager.instance.productsCrowd(auth = API.HEADER_TOKEN, completion = {
                     responseState, responseBody ->
                 when(responseState){
@@ -187,7 +217,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             })
         }
-        else if(view == binding.categoryCompany){
+        else if(view == binding.cgComp){
             RetrofitManager.instance.companies(auth = API.HEADER_TOKEN, completion = {
                     responseState, responseBody ->
                 when(responseState){

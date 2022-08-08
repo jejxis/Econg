@@ -48,7 +48,7 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="start"
                 android:background="@drawable/bg_btn"
-                android:id="@+id/imgToolbarBtnBack"
+                android:id="@+id/btnBack"
                 android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
 
             <ImageButton
@@ -58,7 +58,7 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="end"
                 android:background="@drawable/bg_btn"
-                android:id="@+id/imgToolbarBtnFav"
+                android:id="@+id/btnLike"
                 android:src="@drawable/ic_baseline_favorite_border_24"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

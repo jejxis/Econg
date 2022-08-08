@@ -23,6 +23,7 @@ class DetailPurActivity : AppCompatActivity() {
     //    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
     val api = APIS.create()
     var str = ""
+    var isItFilled : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,5 +63,22 @@ class DetailPurActivity : AppCompatActivity() {
 
             })
         //}
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        binding.btnLike.setOnClickListener {
+            if(isItFilled){
+                binding.btnLike.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                isItFilled = false
+            }else{
+                binding.btnLike.setImageResource(R.drawable.ic_baseline_favorite_24)
+                isItFilled = true
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

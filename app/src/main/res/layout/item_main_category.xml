@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <!--androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -194,5 +194,60 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView-->
+    <Button
+        android:id="@+id/cgHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_category"
+        android:elevation="5dp"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/ic_baseline_home_20"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/hintTextColor"
+        android:text="홈"
+        />
+
+    <Button
+        android:id="@+id/cgCrowd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_category"
+        android:elevation="5dp"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/ic_baseline_people_20"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/hintTextColor"
+        android:text="크라우드 펀딩"
+        />
+
+    <Button
+        android:id="@+id/cgComp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_category"
+        android:elevation="5dp"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/ic_baseline_location_city_20"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/hintTextColor"
+        android:text="기업"
+        />
+
+    <Button
+        android:id="@+id/cgProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_category"
+        android:elevation="5dp"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/ic_baseline_redeem_20"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/hintTextColor"
+        android:text="상품"
+        />
 </LinearLayout>

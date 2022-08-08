@@ -17,6 +17,7 @@ class DetailFundActivity : AppCompatActivity() {
     val api = APIS.create()
     val moneyGoal : Double = 50000.0
     var moneyNow : Double = 25000.0
+    var isItFilled : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -63,5 +64,23 @@ class DetailFundActivity : AppCompatActivity() {
             binding.progressBar.progress = (moneyNow/moneyGoal*100).toInt()
             Toast.makeText(this, "5000원을 펀딩했습니다. 목표금액:50000원, 펀딩현황: ${(moneyNow/moneyGoal*100).toInt()}%", Toast.LENGTH_LONG).show()
         }
+
+        binding.btnBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        binding.btnLike.setOnClickListener {
+            if(isItFilled){
+                binding.btnLike.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                isItFilled = false
+            }else{
+                binding.btnLike.setImageResource(R.drawable.ic_baseline_favorite_24)
+                isItFilled = true
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }
