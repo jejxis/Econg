@@ -66,6 +66,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //recycler
         loadData(binding.cgHome)
+        categoryChange(binding.cgHome)
 
         productAdapter.setClickListener(onClickedListItem)
         companyAdapter.setClickListener(onClickedCompanyListItem)

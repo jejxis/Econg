@@ -79,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:iconifiedByDefault="false"
                     android:queryBackground="@color/transparent"
-                    android:queryHint="Search for recipes" />
+                    android:queryHint="검색" />
 
             </androidx.cardview.widget.CardView>
 
