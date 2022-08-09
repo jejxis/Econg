@@ -37,6 +37,11 @@ interface APIS {
         @Path("companyId") id:Long
     ): Call<GetCompanyDetail>
 
+    @GET("/app/users/info")
+    @Headers("content-type: application/json")
+    fun get_user_info(//@Header("Authorization") auth: String,//added by jina
+    ): Call<UserInfo>
+
     companion object { // static 처럼 공유객체로 사용가능함. 모든 인스턴스가 공유하는 객체로서 동작함.
         private const val BASE_URL = "https://isileeserver.shop" // 주소
 
