@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.data.GetProductDetail
 import net.flow9.thisiskotlin.econg.databinding.ActivityDetailFundBinding
 import net.flow9.thisiskotlin.econg.interfaceModel.APIS
@@ -18,6 +21,7 @@ class DetailFundActivity : AppCompatActivity() {
     val moneyGoal : Double = 50000.0
     var moneyNow : Double = 25000.0
     var isItFilled : Boolean = false
+    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -38,6 +42,12 @@ class DetailFundActivity : AppCompatActivity() {
                             binding.fundStat.text = response.body()?.price.toString()
                             binding.comInfo.text = response.body()?.companyName.toString()
                             binding.productInfo.text = response.body()?.explanation.toString()
+
+                            storage.getReferenceFromUrl(response.body()?.imgUrl.toString()).downloadUrl.addOnSuccessListener { uri ->
+                                Glide.with(binding.imgItem).load(uri).into(binding.imgItem)
+                            }.addOnFailureListener {
+                                Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")
+                            }
                         }
 
                         override fun onFailure(call: Call<GetProductDetail>, t: Throwable) {

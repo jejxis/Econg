@@ -58,7 +58,7 @@ class CompanyAdapter(): RecyclerView.Adapter<CompanyAdapter.CompanyHolder>() {
         }
         fun setData(data: CompanyData) {
             binding.subName.text = "${data.companyName}"
-            storage.getReferenceFromUrl("gs://econg-7e3f6.appspot.com/bud.png").downloadUrl.addOnSuccessListener { uri ->
+            storage.getReferenceFromUrl(data.imgUrl).downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(binding.imgSub).load(uri).into(binding.imgSub)
             }.addOnFailureListener {
                 Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.data.*
@@ -42,6 +43,12 @@ class DetailCompActivity : AppCompatActivity() {
                         Log.d("log", response.toString())
                         Log.d("log", response.body().toString())
                         binding.compName.text = response.body()?.companyName.toString()
+
+                        storage.getReferenceFromUrl(response.body()?.imgUrl.toString()).downloadUrl.addOnSuccessListener { uri ->
+                            Glide.with(binding.imgItem).load(uri).into(binding.imgItem)
+                        }.addOnFailureListener {
+                            Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")
+                        }
 
                         loadData(response.body()?.productList)
                         homeAdapter.setClickListener(onClickedHomeListItem)

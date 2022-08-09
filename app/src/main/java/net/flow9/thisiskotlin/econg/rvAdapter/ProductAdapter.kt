@@ -58,7 +58,7 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.ProductHolder>() {
             binding.subName.text = "${data.title}"
             binding.subInfo.text = "${data.price}"
             binding.subInfo2.text = "${data.companyName}"
-            storage.getReferenceFromUrl("gs://econg-7e3f6.appspot.com/bud.png").downloadUrl.addOnSuccessListener { uri ->
+            storage.getReferenceFromUrl(data.imgUrl).downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(binding.imgSub).load(uri).into(binding.imgSub)
             }.addOnFailureListener {
                 Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")

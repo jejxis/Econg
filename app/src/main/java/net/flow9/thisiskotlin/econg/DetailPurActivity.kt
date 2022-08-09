@@ -3,6 +3,7 @@ package net.flow9.thisiskotlin.econg
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import net.flow9.thisiskotlin.econg.R
@@ -20,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailPurActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityDetailPurBinding.inflate(layoutInflater)}
-    //    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
+    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
     val api = APIS.create()
     var str = ""
     var isItFilled : Boolean = false
@@ -53,6 +54,12 @@ class DetailPurActivity : AppCompatActivity() {
                     binding.fundStat.text = response.body()?.price.toString()
                     binding.comInfo.text = response.body()?.companyName.toString()
                     binding.productInfo.text = response.body()?.explanation.toString()
+
+                    storage.getReferenceFromUrl(response.body()?.imgUrl.toString()).downloadUrl.addOnSuccessListener { uri ->
+                        Glide.with(binding.imgItem).load(uri).into(binding.imgItem)
+                    }.addOnFailureListener {
+                        Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")
+                    }
                 }
 
                 override fun onFailure(call: Call<GetProductDetail>, t: Throwable) {
