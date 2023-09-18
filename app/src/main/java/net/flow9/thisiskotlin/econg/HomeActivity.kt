@@ -30,7 +30,7 @@ import net.flow9.thisiskotlin.econg.utils.RESPONSE_STATE
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     val binding by lazy {ActivityHomeBinding.inflate(layoutInflater)}
-    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
+    val storage = Firebase.storage("gs://~.~.~")
     //val token = MyApplication.prefs.token
 
     var productData: MutableList<ProductData>? = mutableListOf()
@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         //파이어베이스 이미지 불러오기
-        storage.getReferenceFromUrl("gs://econg-7e3f6.appspot.com/bud.png").downloadUrl.addOnSuccessListener { uri ->
+        storage.getReferenceFromUrl("gs://~.~/bud.png").downloadUrl.addOnSuccessListener { uri ->
             Glide.with(this).load(uri).into(binding.logo)
         }.addOnFailureListener {
             Log.e("STORAGE", "DOWNLOAD_ERROR=>${it.message}")
