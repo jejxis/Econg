@@ -12,38 +12,38 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface APIS {
-    @POST("/app/login")
+    @POST("/~/~")
     @Headers("accept: application/json",
         "content-type: application/json")
     fun post_login(
         @Body jsonparams: PostLogin
     ): Call<Login>
 
-    @POST("/app/register")
+    @POST("/~/~")
     @Headers("content-type: application/json")
     fun post_register(
         @Body jsonparams: PostRegister
     ): Call<String>
 
-    @GET("/app/products/{productId}")
+    @GET("/~/~/{productId}")
     @Headers("content-type: application/json")
     fun get_product_detail(//@Header("Authorization") auth: String,//added by jina
         @Path("productId") id:String
     ): Call<GetProductDetail>
 
-    @GET("/app/companies/{companyId}")
+    @GET("/~/~/{companyId}")
     @Headers("content-type: application/json")
     fun get_company_detail(//@Header("Authorization") auth: String,//added by jina
         @Path("companyId") id:Long
     ): Call<GetCompanyDetail>
 
-    @GET("/app/users/info")
+    @GET("/~/~/~")
     @Headers("content-type: application/json")
     fun get_user_info(//@Header("Authorization") auth: String,//added by jina
     ): Call<UserInfo>
 
     companion object { // static 처럼 공유객체로 사용가능함. 모든 인스턴스가 공유하는 객체로서 동작함.
-        private const val BASE_URL = "https://isileeserver.shop" // 주소
+        private const val BASE_URL = "https://~~~~.~~~" // 주소
 
         fun create(): APIS {
             val okHttpClient = OkHttpClient.Builder().addInterceptor(AuthInterceptor()).build()
