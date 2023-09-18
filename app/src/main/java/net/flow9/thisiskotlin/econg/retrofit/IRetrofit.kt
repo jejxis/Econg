@@ -8,18 +8,18 @@ import retrofit2.http.Header
 interface IRetrofit {
 
     //전체 상품 조회(API 4)
-    @GET("/app/products/all")
+    @GET("/~/~/~")
     fun productsAll(@Header("Authorization") auth: String) : Call<JsonElement>
 
     //크라우드 상품 조회(API 5)
-    @GET("/app/products/crowd")
+    @GET("/~/~/~")
     fun productsCrowd(@Header("Authorization") auth: String) : Call<JsonElement>
 
     //상품들만 조회(API 6)
-    @GET("/app/products/only")
+    @GET("/~/~/~")
     fun productsOnly(@Header("Authorization") auth: String) : Call<JsonElement>
 
     //회사조회(API 8)
-    @GET("/app/companies")
+    @GET("/~/~")
     fun companies(@Header("Authorization") auth: String) : Call<JsonElement>
 }
