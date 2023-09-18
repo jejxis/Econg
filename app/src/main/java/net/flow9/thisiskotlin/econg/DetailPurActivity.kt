@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class DetailPurActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityDetailPurBinding.inflate(layoutInflater)}
-    val storage = Firebase.storage("gs://econg-7e3f6.appspot.com")
+    val storage = Firebase.storage("gs://~.~.~")
     val api = APIS.create()
     var str = ""
     var isItFilled : Boolean = false
