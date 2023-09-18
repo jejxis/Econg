@@ -61,7 +61,7 @@ class SignUpActivity : AppCompatActivity() {
                 .create()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://isileeserver.shop")
+                .baseUrl("https://~.~")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             val api = retrofit.create(APIS::class.java)
